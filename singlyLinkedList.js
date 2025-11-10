@@ -129,6 +129,7 @@ class LinkedList {
       console.log(current.data);
       current = current.next;
     }
+    console.log(this.size);
   }
 }
 
@@ -141,7 +142,7 @@ ll.insertLast(400);
 ll.insertAt(500, 2);
 
 // ll.clearList();
-ll.getAt(2);
+// ll.getAt(2);
 
-// ll.printListData();
+ll.printListData();
 

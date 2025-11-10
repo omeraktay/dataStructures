@@ -3,8 +3,6 @@
 //             Updata a task.
 //             Remove a task.
 //             Display all the tasks.
-
-
 class Node{
     constructor(task, next = null){
         this.task = task;
@@ -18,9 +16,10 @@ class TaskList{
         this.size = 0;
     }
     addTaskAtTheEnd(task){
-        let newTask = new Node(task)
+        let newTask = new Node(task);
         if(!this.head){
             this.head = newTask;
+            this.size++;
             return;
         }
         let current = this.head;
@@ -33,80 +32,87 @@ class TaskList{
 
     insertAt(task, index){
         let newTask = new Node(task);
-        if(!this.head){
-            this.head = newTask;
-            return;
-        }
-        if(index == 0){
-            newTask.next = this.head;
-            this.head = newTask;
-            return;
-        }
         if(index > this.size){
             this.addTaskAtTheEnd(task);
             return;
         }
+        if(index <= 1){
+            newTask.next = this.head;
+            this.head = newTask;
+            this.size++;
+            return;
+        }
         let current = this.head;
-        let previous;
         let count = 0;
+        let previous;
         while(count < index){
             previous = current;
-            count++;
             current = current.next;
+            count++;
         }
-        previous.next = newTask;
         newTask.next = current;
+        previous.next = newTask;
         this.size++;
     }
 
-    updateTask(oldTask, newTask){
+    uptadeTask(oldTask, newTask){
         let current = this.head;
         while(current){
             if(current.task === oldTask){
                 current.task = newTask;
-                console.log(`Task updated: "${oldTask}" → "${newTask}"`);
+                console.log(`"${oldTask}" updated to: "${newTask}"`);
                 return;
             }
             current = current.next;
         }
-        console.log(`Task "${oldTask}" not found.`);
+        console.log(`${oldTask} not found!`);
     }
 
-    removeTask(task){
+    deleteTask(task){
+        if(!this.head) return;
         if(task == this.head.task){
             this.head = this.head.next;
+            this.size--;
             return;
         }
         let current = this.head;
-        while(current.next && current.next.task !== task){
+        while(current.next && current.next.task != task){
             current = current.next;
         }
         if(current.next){
             current.next = current.next.next;
+            this.size--;
+            console.log(`"${task}" deleted.`)
+            return;
         }
+        console.log(`${task} not found!`)
     }
 
-    printtasks(){
+    printAllTasks(){
         let current = this.head;
-        let tasks = "";
+        let tasks = '';
         while(current){
-            tasks += current.task + " -> " ;
+            tasks += current.task + " -> ";
             current = current.next;
         }
-        console.log(tasks + "null")
+        console.log(tasks + "null");
+        console.log(`Size of the list is: ${this.size}`);
     }
 }
 
 let taskList = new TaskList();
 
-taskList.addTaskAtTheEnd("Your first task");
-taskList.addTaskAtTheEnd("Your second task");
-taskList.addTaskAtTheEnd("Your third task");
-taskList.addTaskAtTheEnd("Your 5th task");
-taskList.addTaskAtTheEnd("Your 6th task");
+taskList.addTaskAtTheEnd("Your first task.");
+taskList.addTaskAtTheEnd("Your second task.");
+taskList.addTaskAtTheEnd("Your third task.");
+taskList.addTaskAtTheEnd("Your 5th task.");
+taskList.addTaskAtTheEnd("Your 6th task.");
 
 taskList.insertAt("This is your 4th task.", 3)
-taskList.updateTask("This is your 4th task.", "Your 4th task")
-taskList.removeTask("Your 6th task")
+taskList.insertAt("This is a temp task!", 4)
 
-taskList.printtasks();
+taskList.uptadeTask("This is your 4th task.", "Your 4th task.")
+
+taskList.deleteTask("This is a temp task!")
+
+taskList.printAllTasks();

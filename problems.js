@@ -1,34 +1,112 @@
-// Given a pattern and a string s, find if s follows the same pattern.
+// To-Do List: Add a task at the end of the list. 
+//             Insert a task at a specific position.
+//             Updata a task.
+//             Remove a task.
+//             Display all the tasks.
 
-// Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in s. Specifically:
 
-// Each letter in pattern maps to exactly one unique word in s.
-// Each unique word in s maps to exactly one letter in pattern.
-// No two letters map to the same word, and no two words map to the same letter.
-
-let pattern = "abba", s = "dog cat cat fish";
-
-function find(pattern, s){
-    let words = s.split(" ");
-    let patternMap = new Map();
-    let wordMap = new Map();
-    if(words.length != pattern.length) return false;
-    for(let i = 0; i < pattern.length; i++){
-        patternMap.set(pattern[i], words[i]);
+class Node{
+    constructor(task, next = null){
+        this.task = task;
+        this.next = next;
     }
-    for(let i = 0; i < words.length; i++){
-        wordMap.set(words[i], pattern[i]);
-    }
-    for(let i = 0; i < pattern.length; i++){
-        if(
-            (patternMap.has(pattern[i]) && patternMap.get(pattern[i]) != words[i]) ||
-            (wordMap.has(words[i]) && wordMap.get(words[i]) != pattern[i])
-        ){
-            return false;
-        }
-    }
-    return true;
 }
 
+class TaskList{
+    constructor(){
+        this.head = null;
+        this.size = 0;
+    }
+    addTaskAtTheEnd(task){
+        let newTask = new Node(task)
+        if(!this.head){
+            this.head = newTask;
+            return;
+        }
+        let current = this.head;
+        while(current.next){
+            current = current.next;
+        }
+        current.next = newTask;
+        this.size++;
+    }
 
-console.log(find(pattern, s));
+    insertAt(task, index){
+        let newTask = new Node(task);
+        if(!this.head){
+            this.head = newTask;
+            return;
+        }
+        if(index == 0){
+            newTask.next = this.head;
+            this.head = newTask;
+            return;
+        }
+        if(index > this.size){
+            this.addTaskAtTheEnd(task);
+            return;
+        }
+        let current = this.head;
+        let previous;
+        let count = 0;
+        while(count < index){
+            previous = current;
+            count++;
+            current = current.next;
+        }
+        previous.next = newTask;
+        newTask.next = current;
+        this.size++;
+    }
+
+    updateTask(oldTask, newTask){
+        let current = this.head;
+        while(current){
+            if(current.task === oldTask){
+                current.task = newTask;
+                console.log(`Task updated: "${oldTask}" → "${newTask}"`);
+                return;
+            }
+            current = current.next;
+        }
+        console.log(`Task "${oldTask}" not found.`);
+    }
+
+    removeTask(task){
+        if(task == this.head.task){
+            this.head = this.head.next;
+            return;
+        }
+        let current = this.head;
+        while(current.next && current.next.task !== task){
+            current = current.next;
+        }
+        if(current.next){
+            current.next = current.next.next;
+        }
+    }
+
+    printtasks(){
+        let current = this.head;
+        let tasks = "";
+        while(current){
+            tasks += current.task + " -> " ;
+            current = current.next;
+        }
+        console.log(tasks + "null")
+    }
+}
+
+let taskList = new TaskList();
+
+taskList.addTaskAtTheEnd("Your first task");
+taskList.addTaskAtTheEnd("Your second task");
+taskList.addTaskAtTheEnd("Your third task");
+taskList.addTaskAtTheEnd("Your 5th task");
+taskList.addTaskAtTheEnd("Your 6th task");
+
+taskList.insertAt("This is your 4th task.", 3)
+taskList.updateTask("This is your 4th task.", "Your 4th task")
+taskList.removeTask("Your 6th task")
+
+taskList.printtasks();

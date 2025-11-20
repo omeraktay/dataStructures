@@ -13,6 +13,24 @@ for (let i = 1; i < numbers.length; i++) {
 }
 
 console.log("Largest sum of a subarray:", maxSum);
+
+function mostExpenses(arr){
+    let first = -Infinity;
+    let second = -Infinity;
+    for(let amount of arr){
+        if(amount > first){
+            second = first;
+            first = amount;
+        }
+        else if(amount > second){
+            second = amount;
+        }
+    }
+    return `${first} + ${second}`;
+}
+
+console.log(mostExpenses(numbers));
+
 function total(arr){
     let total = 0;
     for(let num of arr){

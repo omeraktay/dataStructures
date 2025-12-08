@@ -93,7 +93,7 @@ console.log(minPositiveValue(input));
 
 // Build and return an array avgs of length n where avgs[i] is the k-radius average for the subarray centered at index i.
 
-let arrayOfNumbers = [7,4,3,9,1,8,5,2,6];
+let arrayOfNumbers = [7,4,3,9,1,8,5,2,6,2,5,7,1,8,2];
 function getAverage(arr, k){
     prefix = [arr[0]];
     for(let i = 1; i < arr.length; i++){
@@ -112,4 +112,4 @@ function getAverage(arr, k){
     }
     return avg;
 }
-console.log(getAverage(arrayOfNumbers, 3));
+console.log(getAverage(arrayOfNumbers, 4));

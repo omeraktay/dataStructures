@@ -169,7 +169,7 @@ console.log(frequency(s));
 
 // Given an integer array nums and an integer k, find the number of subarrays whose sum is equal to k.
 
-let numsArray = [3,1, 2, -3, 2, 1,2,1], k = 3. 
+let numsArray = [2,1,-3,3,2,1], k = 3. 
 
 function findTarget(arr, k){
     let map = new Map();
@@ -259,7 +259,7 @@ function largetsUniqueNumber(arr){
     return ans[0];
 }
 
-console.log(largetsUniqueNumber(nums));
+console.log(largetsUniqueNumber(notUniqueNums));
 
 
 // Given a string text, you want to use the characters of text to form as many instances of the word "balloon" as possible.
@@ -380,7 +380,7 @@ console.log(maxSum(numbs));
 // constructed by using the letters from magazine and false otherwise.
 // Each letter in magazine can only be used once in ransomNote.
 
-let ransomNote = "fihjjjjei", magazine = "hjibagacbhadfaefdjaeaebgi";
+let ransomNote = "fihjei", magazine = "hjibagacbhadfaefdjaeaebgi";
 
 function findRansomNote(ransomNote, magazine){
     let ransomNoteMap = new Map();
